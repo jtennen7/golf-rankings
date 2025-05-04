@@ -1,0 +1,40 @@
+<!-- rankings.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>World Golf Rankings</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>2024 PGA Tour Schedule & World Rankings</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="rankings.html">Rankings</a>
+    </nav>
+  </header>
+
+  <main>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem;">
+      <input type="text" id="rankSearch" placeholder="Search by player name..." />
+      <select id="rankLimit">
+        <option value="all">Show All</option>
+        <option value="10">Top 10</option>
+        <option value="25">Top 25</option>
+      </select>
+    </div>
+    <section id="rankings">
+      <div id="rankingList">Loading players...</div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built using Slash Golf API via RapidAPI</p>
+  </footer>
+
+  <script src="script-rankings.js"></script>
+</body>
+</html>

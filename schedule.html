@@ -1,10 +1,10 @@
-<!-- index.html -->
+<!-- schedule.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Golf Rankings & Schedule</title>
+  <title>2024 PGA Tour Schedule</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -17,13 +17,17 @@
     </nav>
   </header>
 
-  <main style="text-align: center; padding: 2rem;">
-    <a href="schedule.html" class="button">View Tour Schedule</a>
-    <a href="rankings.html" class="button">View World Rankings</a>
+  <main>
+    <input type="text" id="searchBar" placeholder="Search tournaments..." />
+    <section id="tournaments">
+      <div id="tournamentList">Loading tournaments...</div>
+    </section>
   </main>
 
   <footer>
     <p>Built using Slash Golf API via RapidAPI</p>
   </footer>
+
+  <script src="script-schedule.js"></script>
 </body>
 </html>
