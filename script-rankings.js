@@ -12,6 +12,16 @@ const rankLimit = document.getElementById("rankLimit");
 const rankingList = document.getElementById("rankingList");
 let allRankings = [];
 
+// Sort control
+const sortSelect = document.createElement("select");
+sortSelect.id = "sortBy";
+sortSelect.innerHTML = `
+  <option value="rank">Sort by Rank</option>
+  <option value="name">Sort by Name (A-Z)</option>
+  <option value="points">Sort by Avg Points (High-Low)</option>
+`;
+rankSearch.parentNode.appendChild(sortSelect);
+
 async function fetchWorldRankings() {
   const url = 'https://live-golf-data.p.rapidapi.com/stats?year=2024&statId=186';
   const options = {
@@ -49,6 +59,18 @@ function renderRankings(players) {
     toShow = toShow.slice(0, parseInt(limit));
   }
 
+  // Apply sorting
+  const sortBy = document.getElementById("sortBy").value;
+  toShow.sort((a, b) => {
+    if (sortBy === "name") {
+      return a.fullName.localeCompare(b.fullName);
+    } else if (sortBy === "points") {
+      return parseFloat(b.avgPoints?.$numberDouble || 0) - parseFloat(a.avgPoints?.$numberDouble || 0);
+    } else {
+      return parseInt(a.rank?.$numberInt || 999) - parseInt(b.rank?.$numberInt || 999);
+    }
+  });
+
   toShow.forEach(p => {
     const rank = p.rank?.$numberInt || "?";
     const name = p.fullName || `${p.firstName} ${p.lastName}`;
@@ -81,5 +103,12 @@ rankLimit.addEventListener("change", () => {
   renderRankings(filtered);
 });
 
-fetchWorldRankings();
+sortSelect.addEventListener("change", () => {
+  const query = rankSearch.value.toLowerCase();
+  const filtered = allRankings.filter(p =>
+    p.fullName?.toLowerCase().includes(query)
+  );
+  renderRankings(filtered);
+});
 
+fetchWorldRankings();

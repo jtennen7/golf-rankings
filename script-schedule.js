@@ -64,6 +64,27 @@ function renderTournaments(tournaments) {
   });
 }
 
+// "Show Me the Money" sorting logic
+const moneyBtn = document.createElement("button");
+moneyBtn.textContent = "💰 Show Me the Money";
+moneyBtn.style.margin = "1rem auto";
+moneyBtn.style.display = "block";
+moneyBtn.style.padding = "0.5rem 1rem";
+moneyBtn.style.background = "#00794f";
+moneyBtn.style.color = "white";
+moneyBtn.style.border = "none";
+moneyBtn.style.borderRadius = "5px";
+moneyBtn.style.cursor = "pointer";
+moneyBtn.addEventListener("click", () => {
+  const sorted = [...allTournaments].sort((a, b) => {
+    const purseA = parseInt(a.purse?.$numberInt || 0);
+    const purseB = parseInt(b.purse?.$numberInt || 0);
+    return purseB - purseA;
+  });
+  renderTournaments(sorted);
+});
+document.body.insertBefore(moneyBtn, document.querySelector("main"));
+
 searchInput.addEventListener("input", (e) => {
   const query = e.target.value.toLowerCase();
   const filtered = allTournaments.filter(t =>
